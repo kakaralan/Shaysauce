@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shay's Sauce - Handcrafted Hot Sauce</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Shopify Buy Button SDK -->
+    <script async src="https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js"></script>
 </head>
 <body>
     <!-- Header -->
@@ -83,22 +85,16 @@
                 <div class="product-info">
                     <h2>Shay's Sauce Original</h2>
                     <p class="volume">5 oz bottle</p>
-                    <div class="price">$12</div>
                     <ul class="product-features">
                         <li>✓ Handcrafted in small batches</li>
                         <li>✓ All natural ingredients</li>
                         <li>✓ Perfect on everything</li>
                         <li>✓ Free shipping on orders over $30</li>
                     </ul>
-                    <div class="quantity-selector">
-                        <label for="quantity">Quantity:</label>
-                        <div class="quantity-controls">
-                            <button class="qty-btn" id="decrease">−</button>
-                            <input type="number" id="quantity" value="1" min="1" max="12">
-                            <button class="qty-btn" id="increase">+</button>
-                        </div>
-                    </div>
-                    <button class="buy-button" id="addToCart">Add to Cart — <span id="totalPrice">$12</span></button>
+
+                    <!-- Shopify Buy Button will be inserted here -->
+                    <div id="shopify-buy-button-container"></div>
+
                     <p class="shipping-note">Ships within 3-5 business days</p>
                 </div>
             </div>
