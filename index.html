@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shay's Sauce - Handcrafted Hot Sauce</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">Shay's Sauce</div>
+            <div class="nav-links">
+                <a href="#product">Product</a>
+                <a href="#story">Our Story</a>
+                <a href="#buy" class="cta-nav">Buy Now</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Heat Meets Flavor</h1>
+                <p class="tagline">Small batch. Big taste. One perfect sauce.</p>
+                <a href="#buy" class="cta-button">Get Your Bottle</a>
+            </div>
+            <div class="hero-image">
+                <div class="product-showcase">
+                    <div class="bottle-illustration">🌶️</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Details -->
+    <section id="product" class="product-section">
+        <div class="container">
+            <h2>Crafted to Perfection</h2>
+            <div class="product-grid">
+                <div class="feature-card">
+                    <div class="icon">🔥</div>
+                    <h3>Medium Heat</h3>
+                    <p>Perfect balance of flavor and fire. Hot enough to excite, mild enough to enjoy.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">🌱</div>
+                    <h3>All Natural</h3>
+                    <p>No preservatives, no artificial flavors. Just fresh ingredients and love.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">✨</div>
+                    <h3>Small Batch</h3>
+                    <p>Handcrafted in limited quantities to ensure the highest quality every time.</p>
+                </div>
+            </div>
+
+            <div class="ingredients">
+                <h3>What's Inside</h3>
+                <p>Red Habanero Peppers, Apple Cider Vinegar, Garlic, Sea Salt, Lime Juice</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section id="story" class="story-section">
+        <div class="container">
+            <div class="story-content">
+                <h2>The Story Behind the Sauce</h2>
+                <p>What started as a kitchen experiment turned into an obsession. After years of perfecting the recipe, testing on friends, and countless iterations, Shay's Sauce was born.</p>
+                <p>Each bottle is made by hand in small batches, ensuring that every drop meets our high standards. We believe great hot sauce should enhance your food, not overpower it.</p>
+                <p class="signature">— Shay</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Buy Section -->
+    <section id="buy" class="buy-section">
+        <div class="container">
+            <div class="product-card">
+                <div class="product-info">
+                    <h2>Shay's Sauce Original</h2>
+                    <p class="volume">5 oz bottle</p>
+                    <div class="price">$12</div>
+                    <ul class="product-features">
+                        <li>✓ Handcrafted in small batches</li>
+                        <li>✓ All natural ingredients</li>
+                        <li>✓ Perfect on everything</li>
+                        <li>✓ Free shipping on orders over $30</li>
+                    </ul>
+                    <div class="quantity-selector">
+                        <label for="quantity">Quantity:</label>
+                        <div class="quantity-controls">
+                            <button class="qty-btn" id="decrease">−</button>
+                            <input type="number" id="quantity" value="1" min="1" max="12">
+                            <button class="qty-btn" id="increase">+</button>
+                        </div>
+                    </div>
+                    <button class="buy-button" id="addToCart">Add to Cart — <span id="totalPrice">$12</span></button>
+                    <p class="shipping-note">Ships within 3-5 business days</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Shay's Sauce</h4>
+                    <p>Handcrafted hot sauce made with love.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>hello@shaysauce.com</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow</h4>
+                    <p>@shaysauce</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Shay's Sauce. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
