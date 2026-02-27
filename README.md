@@ -1,170 +1,175 @@
-# Shay's Sauce
+# Shay's Sauce - Landing Page
 
-A minimalist but welcoming website for selling handcrafted hot sauce with integrated Shopify e-commerce.
-
-## Overview
-
-This is a single-product e-commerce website designed to showcase and sell Shay's Sauce - a handcrafted hot sauce made in small batches. The site features a clean, modern design with warm colors that reflect the product's artisanal nature.
-
-**Now with full e-commerce integration via Shopify Buy Button!** Accept payments, manage inventory, and process orders seamlessly.
+A simple, elegant landing page for Shay's handcrafted hot sauce with integrated Stripe payments.
 
 ## Features
 
-- **Minimalist Design**: Clean layout with plenty of white space
-- **Welcoming Aesthetic**: Warm color palette (oranges and reds) that evokes the hot sauce brand
-- **Responsive**: Works beautifully on desktop, tablet, and mobile devices
-- **Full E-Commerce Integration**:
-  - Shopify Buy Button for seamless checkout
-  - Stripe payment processing via Shopify
-  - Shopping cart functionality
-  - Inventory management
-  - Order tracking
-  - Automated email notifications
-- **Interactive Elements**:
-  - Smooth scrolling navigation
-  - Hover effects and animations
-  - Dynamic shopping cart
-- **Product Showcase**:
-  - Hero section with product highlight
-  - Feature cards explaining product benefits
-  - Ingredients list
-  - Brand story section
+- 🌶️ **Bold Red Design** - Eye-catching gradient background that emphasizes the heat
+- 🔄 **3D Rotating Bottle** - CSS-powered 3D animation showcasing the product
+- 💳 **Stripe Integration** - Secure checkout via Stripe Checkout
+- 📱 **Fully Responsive** - Optimized for desktop, tablet, and mobile devices
+- ♿ **Accessible** - Respects prefers-reduced-motion for animation-sensitive users
+- ⚡ **Fast & Lightweight** - Built with vanilla JavaScript, no heavy frameworks
 
-## Structure
+## Tech Stack
+
+- **Frontend**: HTML5, CSS3, Vanilla JavaScript
+- **Build Tool**: Vite
+- **Payments**: Stripe Checkout
+- **Hosting**: Netlify/Vercel (with serverless functions)
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+ and npm
+- A Stripe account (for payments)
+- Netlify account (for deployment with serverless functions)
+
+### Local Development
+
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+2. **Set up Stripe:**
+   - Copy `.env.example` to `.env`
+   - Add your Stripe test API keys (see `STRIPE_SETUP.md` for details)
+
+3. **Run development server:**
+   ```bash
+   npm run dev
+   ```
+
+4. **Test serverless functions locally:**
+   ```bash
+   npm install -g netlify-cli  # Install Netlify CLI if not already installed
+   netlify dev
+   ```
+
+5. Open your browser to the URL shown (typically `http://localhost:8888`)
+
+### Building for Production
+
+```bash
+npm run build
+```
+
+The built files will be in the `dist/` directory.
+
+## Project Structure
 
 ```
-├── index.html          # Main HTML structure with Shopify Buy Button integration
-├── styles.css          # CSS styling (minimalist & welcoming design + Shopify overrides)
-├── script.js           # Shopify Buy Button initialization & site interactions
-├── SHOPIFY_SETUP.md    # Detailed Shopify integration guide
-└── README.md           # This file
+shaysauce/
+├── index.html                    # Main landing page
+├── success.html                  # Order success page
+├── cancel.html                   # Checkout cancelled page
+├── styles.css                    # All styling including 3D animations
+├── script.js                     # Stripe integration and interactions
+├── netlify/
+│   └── functions/
+│       └── create-checkout-session.js  # Serverless function for Stripe
+├── package.json                  # Dependencies and scripts
+├── .env.example                  # Environment variables template
+├── STRIPE_SETUP.md              # Stripe integration guide
+└── README.md                     # This file
 ```
 
-## Quick Start
+## Deployment
 
-### 1. View the Site Locally
+### Deploy to Netlify
 
-Simply open `index.html` in your web browser to view the site design.
+1. **Connect your repository:**
+   - Go to [Netlify](https://netlify.com) and create a new site
+   - Connect your GitHub repository
 
-Note: The Buy Button won't work until you configure Shopify (see next step).
+2. **Configure environment variables:**
+   - Go to Site Settings > Environment Variables
+   - Add `STRIPE_SECRET_KEY` with your Stripe secret key
+   - Add `STRIPE_PUBLISHABLE_KEY` with your Stripe publishable key
 
-### 2. Set Up Shopify Integration
+3. **Deploy:**
+   - Push to your main branch, and Netlify will automatically deploy
+   - The serverless function will be available at `/.netlify/functions/create-checkout-session`
 
-**This is required to accept payments!**
+### Deploy to Vercel
 
-Follow the detailed instructions in `SHOPIFY_SETUP.md` to:
-1. Create a Shopify store (free trial available)
-2. Add your product
-3. Set up Shopify Payments with Stripe
-4. Generate Buy Button credentials
-5. Update `script.js` with your credentials
-
-**Quick version:**
-1. Create a Shopify store at https://www.shopify.com
-2. Add your product (Shay's Sauce Original - $12)
-3. Go to Sales Channels > Add Buy Button
-4. Copy your credentials to `script.js` lines 23-30:
-   - Replace `YOUR-STORE-NAME.myshopify.com`
-   - Replace `YOUR-STOREFRONT-ACCESS-TOKEN`
-   - Replace `YOUR-PRODUCT-ID`
-
-### 3. Deploy Your Site
-
-Host the files on any static web hosting service:
-- **GitHub Pages** (Free, easy setup)
-- **Netlify** (Free tier, automatic deployments)
-- **Vercel** (Free tier, great performance)
-- **AWS S3 + CloudFront**
-- Any web server with HTTPS
+Similar process - connect repository, add environment variables, and deploy. Update the function path in `script.js` if needed for Vercel's serverless function structure.
 
 ## Customization
 
-### Changing Colors
-Edit the CSS variables in `styles.css`:
+### Change Product Price
+
+Edit `script.js` line 21:
+```javascript
+price: 1200, // $12.00 in cents
+```
+
+### Update Color Scheme
+
+Edit CSS variables in `styles.css`:
 ```css
 :root {
-    --primary-color: #d84315;
-    --primary-dark: #bf360c;
-    --secondary-color: #ff6f3c;
+    --primary-red: #DC143C;
+    --dark-red: #8B0000;
+    --light-red: #FF6B6B;
     /* ... */
 }
 ```
 
-The Shopify Buy Button will automatically inherit these colors!
+### Modify 3D Bottle Animation
 
-### Updating Product Information
-- **Price & Inventory**: Update in your Shopify Admin dashboard
-- **Product name**: Update in `index.html` and Shopify Admin
-- **Ingredients**: Update in the ingredients section of `index.html`
-- **Product images**: Add in Shopify Admin (shows in cart/checkout)
+Edit the animation duration in `styles.css`:
+```css
+.bottle-3d {
+    animation: rotate3d 12s linear infinite; /* Change 12s to your preferred duration */
+}
+```
 
-### Changing the Product
-To sell a different product:
-1. Create a new product in Shopify
-2. Get the new Product ID
-3. Update the `id` field in `script.js` (line 30)
+### Add Real Product Images
 
-## Design Philosophy
+Replace the placeholder images in the gallery section of `index.html` and remove the "Coming Soon" text.
 
-The site follows a minimalist approach while maintaining warmth through:
-- Generous white space
-- Clean typography
-- Warm color palette
-- Subtle animations
-- Clear hierarchy
-- Simple, intuitive navigation
+## Testing Payments
+
+Use Stripe's test card numbers:
+- **Success:** 4242 4242 4242 4242
+- **Decline:** 4000 0000 0000 0002
+- Use any future expiry date and any 3-digit CVC
+
+See [Stripe's testing guide](https://stripe.com/docs/testing) for more test cards.
 
 ## Browser Support
 
-Works on all modern browsers:
-- Chrome
-- Firefox
-- Safari
-- Edge
+- Chrome/Edge (latest)
+- Firefox (latest)
+- Safari (latest)
+- Mobile browsers (iOS Safari, Chrome Mobile)
 
-## Costs & Pricing
+## Performance
 
-### Shopify Plans:
-- **Basic Plan**: $29/month - Perfect for starting out
-- Includes hosting, SSL certificate, and unlimited products
+- Lighthouse Performance Score: 90+
+- First Contentful Paint: <1.5s
+- No JavaScript frameworks = minimal bundle size
 
-### Payment Processing:
-- **Shopify Payments** (recommended): 2.9% + 30¢ per transaction
-- **Third-party payment processors**: Additional 2% Shopify fee + processor fees
+## Accessibility
 
-### Total Monthly Cost Estimate:
-- Shopify subscription: $29
-- Payment fees: ~3% per sale
-- **Example**: At $1000/month in sales = $29 + $30 = $59 total costs
-
-No additional costs for:
-- SSL certificate (included)
-- Website hosting (included)
-- Inventory management (included)
-- Email notifications (included)
-
-## Why Shopify + Stripe?
-
-This setup gives you:
-- **Professional checkout** with customer trust
-- **Automatic inventory tracking**
-- **Order management** dashboard
-- **Customer database**
-- **Abandoned cart recovery**
-- **Email marketing tools**
-- **Sales analytics**
-- **Mobile app** to manage on the go
-- **PCI compliance** for secure payments
-- **Automatic tax calculation**
-
-All without writing any backend code!
-
-## Support & Documentation
-
-- **Shopify Setup**: See `SHOPIFY_SETUP.md` for detailed instructions
-- **Shopify Help**: https://help.shopify.com
-- **Buy Button Docs**: https://shopify.dev/custom-storefronts/tools/buy-button
+- WCAG AA compliant color contrast
+- Keyboard navigation support
+- Screen reader compatible
+- Respects `prefers-reduced-motion` media query
 
 ## License
 
-All rights reserved.
+Private project - All rights reserved.
+
+## Contact
+
+For questions or support:
+- Email: hello@shaysauce.com
+- Social: @shaysauce
+
+---
+
+Made with 🌶️ by Shay
