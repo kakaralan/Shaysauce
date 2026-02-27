@@ -1,214 +1,52 @@
 // ============================================
-// SHOPIFY BUY BUTTON CONFIGURATION
+// STRIPE CHECKOUT INTEGRATION
 // ============================================
-//
-// SETUP INSTRUCTIONS:
-// 1. Go to your Shopify Admin: yourstorename.myshopify.com/admin
-// 2. Go to Sales Channels > Add sales channel > Buy Button
-// 3. Create a new Buy Button for your product
-// 4. Copy the generated code and replace the values below:
-//    - domain: Your Shopify store domain
-//    - storefrontAccessToken: From the generated code
-//    - productId: From the generated code
 
-// Initialize Shopify Buy Button when SDK is loaded
-function initializeShopifyBuyButton() {
-    if (typeof ShopifyBuy === 'undefined') {
-        console.error('Shopify Buy Button SDK not loaded. Please check your internet connection.');
-        return;
-    }
+// Stripe Buy Now Button Handler
+const buyButton = document.getElementById('buy-now-btn');
+let isProcessing = false;
 
-    var client = ShopifyBuy.buildClient({
-        // REPLACE THESE VALUES WITH YOUR SHOPIFY CREDENTIALS
-        domain: 'YOUR-STORE-NAME.myshopify.com',
-        storefrontAccessToken: 'YOUR-STOREFRONT-ACCESS-TOKEN'
-    });
+if (buyButton) {
+    buyButton.addEventListener('click', async () => {
+        // Prevent double-clicks
+        if (isProcessing) return;
 
-    ShopifyBuy.UI.onReady(client).then(function (ui) {
-        ui.createComponent('product', {
-            // REPLACE THIS WITH YOUR PRODUCT ID
-            id: 'YOUR-PRODUCT-ID',
-            node: document.getElementById('shopify-buy-button-container'),
-            moneyFormat: '%24%7B%7Bamount%7D%7D',
-            options: {
-                product: {
-                    styles: {
-                        product: {
-                            '@media (min-width: 601px)': {
-                                'max-width': 'calc(25% - 20px)',
-                                'margin-left': '20px',
-                                'margin-bottom': '50px'
-                            },
-                            'text-align': 'left'
-                        },
-                        title: {
-                            'font-size': '24px',
-                            'color': '#2c2c2c',
-                            'font-weight': 'bold'
-                        },
-                        price: {
-                            'font-size': '32px',
-                            'color': '#d84315',
-                            'font-weight': '700'
-                        },
-                        compareAt: {
-                            'font-size': '18px',
-                            'color': '#666'
-                        },
-                        button: {
-                            'font-family': '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif',
-                            'font-size': '18px',
-                            'padding-top': '16px',
-                            'padding-bottom': '16px',
-                            'background-color': '#d84315',
-                            'border-radius': '30px',
-                            'font-weight': '600',
-                            ':hover': {
-                                'background-color': '#bf360c'
-                            },
-                            ':focus': {
-                                'background-color': '#bf360c'
-                            }
-                        },
-                        quantityInput: {
-                            'font-size': '18px',
-                            'padding-top': '16px',
-                            'padding-bottom': '16px'
-                        }
-                    },
-                    contents: {
-                        img: false,
-                        title: false,
-                        price: true
-                    },
-                    text: {
-                        button: 'Add to Cart'
-                    }
+        isProcessing = true;
+        buyButton.textContent = 'Processing...';
+        buyButton.disabled = true;
+
+        try {
+            // Call serverless function to create Stripe Checkout session
+            const response = await fetch('/.netlify/functions/create-checkout-session', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
                 },
-                productSet: {
-                    styles: {
-                        products: {
-                            '@media (min-width: 601px)': {
-                                'margin-left': '-20px'
-                            }
-                        }
-                    }
-                },
-                modalProduct: {
-                    contents: {
-                        img: false,
-                        imgWithCarousel: true,
-                        button: false,
-                        buttonWithQuantity: true
-                    },
-                    styles: {
-                        product: {
-                            '@media (min-width: 601px)': {
-                                'max-width': '100%',
-                                'margin-left': '0px',
-                                'margin-bottom': '0px'
-                            }
-                        },
-                        button: {
-                            'font-family': '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif',
-                            'font-size': '18px',
-                            'padding-top': '16px',
-                            'padding-bottom': '16px',
-                            'background-color': '#d84315',
-                            'border-radius': '30px',
-                            'font-weight': '600',
-                            ':hover': {
-                                'background-color': '#bf360c'
-                            },
-                            ':focus': {
-                                'background-color': '#bf360c'
-                            }
-                        },
-                        title: {
-                            'font-family': '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif',
-                            'font-weight': 'bold',
-                            'font-size': '26px',
-                            'color': '#2c2c2c'
-                        },
-                        price: {
-                            'font-family': '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif',
-                            'font-weight': 'bold',
-                            'font-size': '32px',
-                            'color': '#d84315'
-                        },
-                        compareAt: {
-                            'font-family': '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif',
-                            'font-weight': 'normal',
-                            'font-size': '18px',
-                            'color': '#666'
-                        }
-                    },
-                    text: {
-                        button: 'Add to cart'
-                    }
-                },
-                option: {},
-                cart: {
-                    styles: {
-                        button: {
-                            'font-family': '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif',
-                            'font-size': '18px',
-                            'padding-top': '16px',
-                            'padding-bottom': '16px',
-                            'background-color': '#d84315',
-                            'border-radius': '30px',
-                            'font-weight': '600',
-                            ':hover': {
-                                'background-color': '#bf360c'
-                            },
-                            ':focus': {
-                                'background-color': '#bf360c'
-                            }
-                        }
-                    },
-                    text: {
-                        total: 'Subtotal',
-                        button: 'Checkout'
-                    }
-                },
-                toggle: {
-                    styles: {
-                        toggle: {
-                            'font-family': '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif',
-                            'background-color': '#d84315',
-                            ':hover': {
-                                'background-color': '#bf360c'
-                            },
-                            ':focus': {
-                                'background-color': '#bf360c'
-                            }
-                        }
-                    }
-                }
+                body: JSON.stringify({
+                    productName: "Shay's Sauce Original",
+                    price: 1200, // $12.00 in cents
+                    quantity: 1
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to create checkout session');
             }
-        });
+
+            const { url } = await response.json();
+
+            // Redirect to Stripe Checkout
+            window.location.href = url;
+        } catch (error) {
+            console.error('Checkout error:', error);
+            alert('Unable to process checkout. Please try again or contact us at hello@shaysauce.com');
+
+            // Reset button state
+            isProcessing = false;
+            buyButton.textContent = 'Buy Now - $12';
+            buyButton.disabled = false;
+        }
     });
-}
-
-// Wait for Shopify Buy SDK to load
-if (window.ShopifyBuy) {
-    if (window.ShopifyBuy.UI) {
-        initializeShopifyBuyButton();
-    } else {
-        loadScript();
-    }
-} else {
-    loadScript();
-}
-
-function loadScript() {
-    var script = document.createElement('script');
-    script.async = true;
-    script.src = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
-    script.onload = function() {
-        initializeShopifyBuyButton();
-    };
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
 }
 
 // ============================================
@@ -255,3 +93,20 @@ window.addEventListener('scroll', () => {
 
     lastScroll = currentScroll;
 });
+
+// ============================================
+// 3D BOTTLE INTERACTION (Optional)
+// ============================================
+
+// Pause rotation on hover
+const bottle = document.querySelector('.bottle-3d');
+
+if (bottle) {
+    bottle.addEventListener('mouseenter', () => {
+        bottle.style.animationPlayState = 'paused';
+    });
+
+    bottle.addEventListener('mouseleave', () => {
+        bottle.style.animationPlayState = 'running';
+    });
+}
